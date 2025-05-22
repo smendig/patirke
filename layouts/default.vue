@@ -107,8 +107,26 @@
     <div class="footer">
       <div class="footercontainer">
         <p>
-          Copyright © 2025 Patirke Mendiguren -
+          Copyright © 2025 Patirke Mendiguren –
           <a href="mailto:patirkem@gmail.com">patirkem@gmail.com</a>
+          &nbsp;|&nbsp;
+          <a
+            class="github-link"
+            href="https://github.com/smendig/patirke"
+            target="_blank"
+            rel="noopener"
+            aria-label="Código fuente en GitHub"
+            title="Ver código fuente en GitHub"
+          >
+            <img
+              src="../assets/images/social/github.svg"
+              alt="GitHub"
+              width="20"
+              height="20"
+              style="filter: brightness(0) invert(1); vertical-align: middle;"
+            >
+            <span class="sr-only">Código fuente en GitHub</span>
+          </a>
         </p>
       </div>
     </div>
@@ -235,6 +253,35 @@ a {
     width: 50px;
     height: 50px;
   }
+}
+
+.footer a.github-link {
+  vertical-align: middle;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: #fff;
+  text-decoration: none;
+
+  img {
+    filter: brightness(0) invert(1);
+    vertical-align: middle;
+    transition: opacity 0.2s;
+  }
+  &:hover img {
+    opacity: 0.7;
+  }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  border: 0;
 }
 
 @media only screen and (max-width: 768px) {
