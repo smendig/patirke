@@ -1,5 +1,5 @@
 <template>
-  <main class="page nopagepadding">
+  <main class="page no-main-padding">
     <div
       v-for="(img, index) in imgs"
       :key="index"

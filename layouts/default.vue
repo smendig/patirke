@@ -104,7 +104,7 @@ a {
   padding: 10px 20px;
 }
 
-.main>.nopagepadding {
+.main>.no-main-padding {
   padding: 0;
 }
 
