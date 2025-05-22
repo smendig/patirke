@@ -1,34 +1,25 @@
 <template>
   <main class="page">
     <h1>Información de contacto</h1>
-    <div id="system">
-      <div class="item">
-        <div style="border: 1px solid #777; padding: 5px 15px 30px; margin: 15px 0px">
-          <div>
-            <h2>DATOS DE CONTACTO</h2>
-            <div class="c1">
-              <h3>O'Rocho Talent Agency</h3>
-              <p>
-                <strong>Amanda Rodríguez Cabal</strong>
-              </p>
-              <p>
-                <a href="mailto:amanda@orocho.es">amanda@orocho.es</a>
-              </p>
-              <p>
-                Teléfono:
-                <a href="tel:+34657864911">+34 657 86 49 11</a>
-              </p>
-            </div>
-            <div class="c2">
-              <h3>Mail personal</h3>
-              <p>
-                <a href="mailto:patirkem@gmail.com">patirkem@gmail.com</a>
-              </p>
-            </div>
-          </div>
-        </div>
+    <section class="contact-section">
+      <div class="contact-card">
+        <h2>Representación</h2>
+        <h3>O'Rocho Talent Agency</h3>
+        <p><strong>Amanda Rodríguez Cabal</strong></p>
+        <p>
+          <a href="mailto:amanda@orocho.es">amanda@orocho.es</a>
+        </p>
+        <p>
+          Teléfono: <a href="tel:+34657864911">+34 657 86 49 11</a>
+        </p>
       </div>
-    </div>
+      <div class="contact-card">
+        <h2>Contacto directo</h2>
+        <p>
+          <a href="mailto:patirkem@gmail.com">patirkem@gmail.com</a>
+        </p>
+      </div>
+    </section>
   </main>
 </template>
 
@@ -45,10 +36,36 @@ useHead({
 </script>
 
 <style scoped>
-.c1,
-.c2 {
+.contact-section {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2em;
+  margin-top: 2em;
+  justify-content: flex-start;
+}
+.contact-card {
   border: 1px solid #333;
-  margin: 20px 0px;
-  padding: 5px 20px;
+  border-radius: 8px;
+  padding: 1.5em 2em;
+  min-width: 250px;
+  background: #181818;
+  color: #fff;
+  flex: 1 1 300px;
+}
+.contact-card h2 {
+  margin-top: 0;
+  font-size: 1.2em;
+  color: #e5e5e5;
+}
+.contact-card h3 {
+  margin-bottom: 0.5em;
+  font-size: 1em;
+  color: #b4b4b4;
+}
+@media (max-width: 600px) {
+  .contact-section {
+    flex-direction: column;
+    gap: 1em;
+  }
 }
 </style>
