@@ -5,6 +5,9 @@ on:
     branches:
       - main
 
+env:
+  CNAME_DOMAIN: patirke.com
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -32,4 +35,4 @@ jobs:
       - name: Deploy to GitHub Pages
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: npx gh-pages --cname patirke.com -d .output/public --repo=https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git
+        run: npx gh-pages --cname $CNAME_DOMAIN -d .output/public --repo=https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git
