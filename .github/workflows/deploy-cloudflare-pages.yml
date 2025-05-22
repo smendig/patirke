@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - disable-ga-github-pages-deployment
 
 env:
   CNAME_DOMAIN: patirke.com
@@ -27,11 +26,6 @@ jobs:
 
       - name: Generate static site
         run: npm run generate
-
-      # - name: Configure git user
-      #   run: |
-      #     git config --global user.email "github-actions[bot]@users.noreply.github.com"
-      #     git config --global user.name "github-actions[bot]"
 
       - name: Deploy Cloudflare Pages
         uses: cloudflare/wrangler-action@v3
