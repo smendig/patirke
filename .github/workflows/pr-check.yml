@@ -26,7 +26,7 @@ jobs:
         run: npm run lint
 
       - name: TypeScript check
-        run: npx vue-tsc --noEmit
+        run: npm run typecheck
 
       - name: Build check
         run: npm run generate
