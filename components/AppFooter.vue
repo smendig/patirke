@@ -31,18 +31,15 @@
   </footer>
 </template>
 
-<script setup lang="ts">
-// No script needed for static footer
-</script>
-
 <style scoped lang="scss">
 .footer {
-    text-align: center;
-    background-color: #000;
-    color: #fff;
-    display: flex;
-    align-items: center;
-    min-height: 100px;
+  text-align: center;
+  grid-area: footer;
+  background-color: #000;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  min-height: 100px;
 }
 
 .footercontainer {
