@@ -10,8 +10,12 @@ export default defineNuxtConfig({
       viewport: 'width=device-width, initial-scale=1',
       charset: 'utf-8',
     },
+    buildAssetsDir: '/assets/',
   },
-
+  // TODO: remove this when moved to cloudflare pages:
+  experimental: {
+    payloadExtraction: false,
+  },
   compatibilityDate: '2025-05-21',
 
   nitro: {
