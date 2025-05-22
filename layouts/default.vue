@@ -106,10 +106,14 @@
     </div>
     <div class="footer">
       <div class="footercontainer">
-        <p>
-          Copyright © 2025 Patirke Mendiguren –
-          <a href="mailto:patirkem@gmail.com">patirkem@gmail.com</a>
-          &nbsp;|&nbsp;
+        <div class="footer-main-modern">
+          <span class="footer-copyright">© 2025 Patirke Mendiguren</span>
+          <a
+            class="footer-email"
+            href="mailto:patirkem@gmail.com"
+          >patirkem@gmail.com</a>
+        </div>
+        <div class="footer-author">
           <a
             class="github-link"
             href="https://github.com/smendig/patirke"
@@ -127,7 +131,7 @@
             >
             <span class="sr-only">Código fuente en GitHub</span>
           </a>
-        </p>
+        </div>
       </div>
     </div>
   </div>
@@ -180,7 +184,66 @@ a {
 
   .footercontainer {
     flex: 1 1 auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.7em;
+    padding: 24px 0 32px 0;
   }
+}
+
+.footer-main {
+  font-size: 1.1em;
+  color: #fff;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
+}
+
+.footer-main-modern {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2em;
+  font-size: 1.08em;
+  color: #e0e0e0;
+  letter-spacing: 0.01em;
+}
+
+.footer-main-modern .footer-email {
+  color: #b4b4b4;
+  font-size: 0.98em;
+  text-decoration: none;
+  margin-top: 2px;
+  transition: color 0.2s;
+}
+
+.footer-main-modern .footer-email:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
+.footer-main-modern span {
+  font-weight: 400;
+  letter-spacing: 0.02em;
+}
+
+.footer-author {
+  margin-top: 0.2em;
+  font-size: 0.93em;
+  color: #b4b4b4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.footer-sep {
+  color: #666;
+  margin: 0 0.3em;
 }
 
 .main {
@@ -308,6 +371,30 @@ a {
       padding: 10px 10px;
       margin: 5px 0px;
     }
+  }
+
+  .footercontainer {
+    padding: 18px 0 8px 0;
+    gap: 0.6em;
+  }
+
+  .footer-main-modern {
+    font-size: 1em;
+    gap: 0.1em;
+  }
+
+  .footer-main, .footer-author {
+    flex-direction: column;
+    gap: 0.2em;
+    text-align: center;
+  }
+
+  .footer-author {
+    font-size: 0.9em;
+  }
+
+  .footer-sep {
+    display: none;
   }
 }
 </style>
