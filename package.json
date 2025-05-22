@@ -9,7 +9,9 @@
     "generate": "nuxi generate",
     "deploy": "gh-pages --cname patirke.com -d .output/public",
     "preview": "nuxi preview",
-    "postinstall": "nuxi prepare"
+    "postinstall": "nuxi prepare",
+    "lint": "eslint --ext .ts,.vue .",
+    "typecheck": "nuxi typecheck"
   },
   "devDependencies": {
     "@nuxt/eslint": "1.4.1",
