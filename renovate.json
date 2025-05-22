@@ -6,14 +6,6 @@
   "schedule": [
     "monthly"
   ],
-  "group": {
-    "default": {
-      "groupName": "All dependencies",
-      "packages": [
-        "*"
-      ]
-    }
-  },
   "prConcurrentLimit": 1,
   "automerge": false,
   "dependencyDashboard": false,
@@ -23,7 +15,8 @@
         "dependencies",
         "devDependencies"
       ],
-      "rangeStrategy": "pin"
+      "rangeStrategy": "pin",
+      "groupName": "All dependencies"
     }
   ],
   "labels": [
