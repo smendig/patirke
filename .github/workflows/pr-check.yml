@@ -1,4 +1,4 @@
-name: PR Build & Type Check
+name: "Pull Request: Lint, Type Check & Build"
 
 on:
   pull_request:
