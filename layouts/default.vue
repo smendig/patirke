@@ -20,32 +20,7 @@
     </a>
     <div class="menu">
       <AppNav />
-      <div id="socialnav">
-        <div class="cimdb">
-          <a
-            href="https://www.imdb.com/name/nm6263976/"
-            target="_blank"
-            rel="noopener"
-          >
-            <img
-              src="../assets/images/social/imdb-256-black.webp"
-              alt="imdb"
-            >
-          </a>
-        </div>
-        <div class="cinst">
-          <a
-            href="https://www.instagram.com/patirke.m/"
-            target="_blank"
-            rel="noopener"
-          >
-            <img
-              src="../assets/images/social/instagram-256-black.webp"
-              alt="instagram"
-            >
-          </a>
-        </div>
-      </div>
+      <SocialNav />
     </div>
     <div class="main">
       <slot />
@@ -57,6 +32,7 @@
 <script setup lang="ts">
 import AppFooter from '~/components/AppFooter.vue'
 import AppNav from '~/components/AppNav.vue'
+import SocialNav from '~/components/SocialNav.vue'
 </script>
 
 <style lang="scss">
@@ -128,17 +104,6 @@ a {
   grid-area: menu;
   position: sticky;
   background: #fff;
-}
-
-#socialnav {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-
-  img {
-    width: 50px;
-    height: 50px;
-  }
 }
 
 @media only screen and (max-width: 768px) {
