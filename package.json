@@ -1,5 +1,8 @@
 {
-  "private": true,
+  "name": "patirke-mendiguren-portfolio",
+  "version": "1.0.0",
+  "description": "Portfolio website for Patirke Mendiguren, Spanish-Basque actress and singer.",
+  "author": "Sabin Mendiguren",
   "scripts": {
     "build": "nuxi build",
     "dev": "nuxi dev",
