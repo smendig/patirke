@@ -1,0 +1,31 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended"
+  ],
+  "schedule": [
+    "monthly"
+  ],
+  "prConcurrentLimit": 1,
+  "automerge": false,
+  "dependencyDashboard": false,
+  "packageRules": [
+    {
+      "matchDepTypes": [
+        "dependencies",
+        "devDependencies"
+      ],
+      "rangeStrategy": "pin",
+      "groupName": "All dependencies"
+    }
+  ],
+  "labels": [
+    "dependencies"
+  ],
+  "assignees": [
+    "smendig"
+  ],
+  "baseBranches": [
+    "main"
+  ]
+}
