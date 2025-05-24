@@ -12,8 +12,12 @@ export default defineNuxtConfig({
     },
     buildAssetsDir: '/assets/',
   },
+  runtimeConfig: {
+    public: {
+      siteUrl: 'https://patirke.com',
+    },
+  },
   compatibilityDate: '2025-05-21',
-
   nitro: {
     static: true,
     prerender: {
