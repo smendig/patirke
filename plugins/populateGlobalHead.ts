@@ -20,7 +20,10 @@ export default defineNuxtPlugin(() => {
         link: [
           {
             rel: 'canonical',
-            href: `${config.public.siteUrl}${fullPath}/`,
+            href:
+            fullPath === '/'
+              ? config.public.siteUrl
+              : `${config.public.siteUrl}${fullPath}`,
           },
         ],
       })
