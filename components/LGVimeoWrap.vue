@@ -77,23 +77,34 @@ const initGallery = () => {
       download: false,
       subHtmlSelectorRelative: true,
       licenseKey: '0',
+      mobileSettings: {
+        controls: true,
+        showCloseIcon: true,
+        download: false,
+      },
     })
   }
 }
 
-onMounted(async () => {
+const getVideoVideosInfo = async (vimeoIds: string[]): Promise<VimeoVideo[]> => {
   const response = await Promise.all(
-    props.vimeoIds.map(async (id) => {
+    vimeoIds.map(async (id) => {
       const res = await fetch(
         `https://vimeo.com/api/oembed.json?url=https://vimeo.com/${id}`,
       )
       if (!res.ok) {
         return
       }
-      return res.json() as unknown as VimeoVideo
+      const data = await res.json() as VimeoVideo
+      return data
     }),
   )
-  vMetaData.value = response.filter(o => Boolean(o)) as VimeoVideo[]
+  const filteredResponse = response.filter((o): o is VimeoVideo => o !== undefined)
+  return filteredResponse
+}
+
+onMounted(async () => {
+  vMetaData.value = await getVideoVideosInfo(props.vimeoIds)
   nextTick(() => {
     initGallery()
   })
