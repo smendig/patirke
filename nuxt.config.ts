@@ -12,10 +12,6 @@ export default defineNuxtConfig({
     },
     buildAssetsDir: '/assets/',
   },
-  // TODO: remove this when moved to cloudflare pages:
-  experimental: {
-    payloadExtraction: false,
-  },
   compatibilityDate: '2025-05-21',
 
   nitro: {
