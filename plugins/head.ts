@@ -4,6 +4,15 @@ export default defineNuxtPlugin(() => {
   const config = useRuntimeConfig()
   const route = useRoute()
 
+  useHead({
+    meta: [
+      {
+        name: 'robots',
+        content: 'index, follow',
+      },
+    ],
+  })
+
   watch(
     () => route.fullPath,
     (fullPath) => {
