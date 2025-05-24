@@ -69,6 +69,11 @@ const initGallery = () => {
       plugins: [lgAutoplay],
       download: false,
       licenseKey: '0',
+      mobileSettings: {
+        controls: true,
+        showCloseIcon: true,
+        download: false,
+      },
     })
   }
 }
