@@ -24,10 +24,6 @@
   </nav>
 </template>
 
-<script setup lang="ts">
-// No script needed for static nav
-</script>
-
 <style scoped lang="scss">
 #nav {
     padding: 0px;
