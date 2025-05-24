@@ -14,11 +14,11 @@
 
 <script setup lang="ts">
 useHead({
-  title: 'Patirke Mendiguren',
+  title: 'Patirke Mendiguren - Actriz y Cantante',
   meta: [
     {
       name: 'description',
-      content: 'Web oficial de la actriz y cantante Patirke Mendiguren',
+      content: 'Web oficial de Patirke Mendiguren, actriz y cantante. Descubre su curriculum, galería, vídeos, música y contacto profesional.',
     },
   ],
 })

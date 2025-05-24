@@ -33,6 +33,52 @@
 import AppFooter from '~/components/AppFooter.vue'
 import AppNav from '~/components/AppNav.vue'
 import SocialNav from '~/components/SocialNav.vue'
+import { useHead, useRuntimeConfig, useRoute, watch } from '#imports'
+
+const config = useRuntimeConfig()
+const route = useRoute()
+useHead({
+  script: [
+    {
+      type: 'application/ld+json',
+      innerHTML: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'Person',
+        'name': 'Patirke Mendiguren',
+        'jobTitle': 'Actriz y Cantante',
+        'url': 'https://patirke.com/',
+        'image': 'https://patirke.com/portada/patirke121.jpg',
+        'sameAs': [
+          'https://www.imdb.com/name/nm6263976/',
+          'https://www.instagram.com/patirke.m/',
+        ],
+      }),
+    },
+  ],
+  meta: [
+    {
+      name: 'robots',
+      content: 'index, follow',
+    },
+  ],
+})
+watch(
+  () => route.fullPath,
+  (fullPath) => {
+    useHead({
+      link: [
+        {
+          rel: 'canonical',
+          href:
+            fullPath === '/'
+              ? config.public.siteUrl
+              : `${config.public.siteUrl}${fullPath}`,
+        },
+      ],
+    })
+  },
+  { immediate: true },
+)
 </script>
 
 <style lang="scss">

@@ -199,6 +199,11 @@ useHead({
       name: 'description',
       content: 'Experiencia en cine, teatro y televisión, formación y curriculum',
     },
+    { property: 'og:title', content: 'Curriculum de Patirke Mendiguren' },
+    { property: 'og:description', content: 'Descubre la experiencia profesional, formación y habilidades de Patirke Mendiguren en cine, teatro y televisión.' },
+    { property: 'og:image', content: 'https://patirke.com/portada/patirke121.jpg' },
+    { property: 'og:url', content: 'https://patirke.com/curriculum/' },
+    { property: 'og:type', content: 'profile' },
   ],
 })
 </script>

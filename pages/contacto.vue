@@ -31,6 +31,11 @@ useHead({
       name: 'description',
       content: 'Información de contacto',
     },
+    { property: 'og:title', content: 'Contacto - Patirke Mendiguren' },
+    { property: 'og:description', content: 'Información de contacto profesional y de representación de Patirke Mendiguren, actriz y cantante.' },
+    { property: 'og:image', content: 'https://patirke.com/portada/patirke121.jpg' },
+    { property: 'og:url', content: 'https://patirke.com/contacto/' },
+    { property: 'og:type', content: 'website' },
   ],
 })
 </script>
