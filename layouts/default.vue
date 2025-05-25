@@ -1,30 +1,41 @@
 <template>
   <div class="container">
-    <a href="/">
-      <div class="logo">
-        <img
-          class="xl"
-          height="205"
-          width="205"
-          src="../assets/images/patirke-mendiguren-logo.png"
-          alt="Patirke Mendiguren"
-        >
-        <img
-          class="sm"
-          height="100"
-          width="250"
-          src="../assets/images/patirke-mendiguren-logo-small.png"
-          alt="Patirke Mendiguren"
-        >
-      </div>
-    </a>
-    <div class="menu">
+    <header>
+      <a
+        href="/"
+        aria-label="Volver a la página principal"
+      >
+        <div class="logo">
+          <img
+            class="xl"
+            height="205"
+            width="205"
+            src="../assets/images/patirke-mendiguren-logo.png"
+            alt="Patirke Mendiguren"
+            loading="eager"
+            fetchpriority="high"
+          >
+          <img
+            class="sm"
+            height="100"
+            width="250"
+            src="../assets/images/patirke-mendiguren-logo-small.png"
+            alt="Patirke Mendiguren"
+            loading="eager"
+          >
+        </div>
+      </a>
+    </header>
+    <nav
+      class="menu"
+      aria-label="Navegación principal"
+    >
       <AppNav />
       <SocialNav />
-    </div>
-    <div class="main">
+    </nav>
+    <main class="main">
       <slot />
-    </div>
+    </main>
     <AppFooter />
   </div>
 </template>
@@ -83,11 +94,12 @@ watch(
 
 <style lang="scss">
 body {
-  font-family: "Metrophobic", sans-serif;
+  font-family: "Metrophobic", Arial, sans-serif;
   color: #b4b4b4;
   font-weight: 300;
   margin: 0;
   background: #1a1a1a;
+  line-height: 1.6;
 }
 
 h1,
@@ -106,20 +118,23 @@ a {
 }
 
 .container {
+  min-height: 100vh;
   display: grid;
-  grid-template-columns: 0fr 1fr 1fr;
-  grid-template-rows: 0fr 1fr 0fr;
-  gap: 0px 0px;
-  grid-auto-flow: row;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto 1fr auto;
   grid-template-areas:
-    "logo main main"
-    "menu main main"
-    "menu footer footer";
+    "logo main"
+    "menu main"
+    "footer footer";
 }
 
 .main {
   grid-area: main;
   background-color: #000;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
 
 .main>* {
@@ -154,17 +169,33 @@ a {
 
 @media only screen and (max-width: 768px) {
   .container {
-    display: initial;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
   }
-
+  .main {
+    flex: 1 0 auto;
+    order: 3;
+  }
+  .menu {
+    order: 2;
+  }
   .logo {
+    order: 1;
+    padding: 10px 0;
+
     img.xl {
       display: none;
     }
 
     img.sm {
-      display: initial;
+      display: block;
+      max-width: 100%;
+      height: auto;
     }
+  }
+  .footer {
+    order: 4;
   }
 }
 </style>

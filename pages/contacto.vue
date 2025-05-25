@@ -41,12 +41,19 @@ useHead({
 </script>
 
 <style scoped>
+.page {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
 .contact-section {
   display: flex;
   flex-wrap: wrap;
   gap: 2em;
   margin-top: 2em;
   justify-content: flex-start;
+  flex: 1;
 }
 .contact-card {
   border: 1px solid #333;

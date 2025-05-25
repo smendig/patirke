@@ -33,13 +33,9 @@
 
 <style scoped lang="scss">
 .footer {
-  text-align: center;
   grid-area: footer;
   background-color: #000;
   color: #fff;
-  display: flex;
-  align-items: center;
-  min-height: 100px;
 }
 
 .footercontainer {
