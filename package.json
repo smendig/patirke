@@ -14,10 +14,10 @@
   },
   "devDependencies": {
     "@nuxt/eslint": "1.4.1",
-    "eslint": "9.27.0",
-    "gh-pages": "^6.3.0",
+    "eslint": "9.28.0",
+    "gh-pages": "6.3.0",
     "nuxt": "3.17.4",
-    "sass": "1.89.0",
+    "sass": "1.89.1",
     "sass-loader": "16.0.5",
     "sharp": "0.34.2"
   },
