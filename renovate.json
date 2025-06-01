@@ -4,7 +4,7 @@
     "config:recommended"
   ],
   "schedule": [
-    "monthly"
+    "weekly"
   ],
   "prConcurrentLimit": 1,
   "automerge": false,
