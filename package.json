@@ -14,7 +14,7 @@
   },
   "devDependencies": {
     "@nuxt/eslint": "1.4.1",
-    "eslint": "9.28.0",
+    "eslint": "9.29.0",
     "gh-pages": "6.3.0",
     "nuxt": "3.17.5",
     "sass": "1.89.2",
@@ -22,7 +22,7 @@
     "sharp": "0.34.2"
   },
   "dependencies": {
-    "glob": "11.0.2",
+    "glob": "11.0.3",
     "lightgallery": "2.8.3",
     "vue-tsc": "2.2.10"
   }
