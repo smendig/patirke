@@ -13,10 +13,10 @@
     "typecheck": "nuxi typecheck"
   },
   "devDependencies": {
-    "@nuxt/eslint": "1.4.1",
-    "eslint": "9.30.0",
+    "@nuxt/eslint": "1.5.2",
+    "eslint": "9.30.1",
     "gh-pages": "6.3.0",
-    "nuxt": "3.17.5",
+    "nuxt": "3.17.6",
     "sass": "1.89.2",
     "sass-loader": "16.0.5",
     "sharp": "0.34.2"
@@ -24,6 +24,6 @@
   "dependencies": {
     "glob": "11.0.3",
     "lightgallery": "2.8.3",
-    "vue-tsc": "2.2.10"
+    "vue-tsc": "2.2.12"
   }
 }
