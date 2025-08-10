@@ -13,11 +13,11 @@
     "typecheck": "nuxi typecheck"
   },
   "devDependencies": {
-    "@nuxt/eslint": "1.7.1",
-    "eslint": "9.32.0",
+    "@nuxt/eslint": "1.8.0",
+    "eslint": "9.33.0",
     "gh-pages": "6.3.0",
-    "nuxt": "3.18.0",
-    "sass": "1.89.2",
+    "nuxt": "3.18.1",
+    "sass": "1.90.0",
     "sass-loader": "16.0.5",
     "sharp": "0.34.3"
   },
