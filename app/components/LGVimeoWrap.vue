@@ -135,7 +135,7 @@ onUnmounted(() => {
 @import "lightgallery/css/lightgallery.css";
 @import "lightgallery/css/lg-video.css";
 @import "lightgallery/css/lg-thumbnail.css";
-@import "../assets/css/ls.css";
+@import "~/assets/css/ls.css";
 
 #vimeo-gallery {
   display: grid;

@@ -24,7 +24,7 @@
 <script setup lang="ts">
 import lightGallery from 'lightgallery'
 import lgAutoplay from 'lightgallery/plugins/autoplay/lg-autoplay.umd.js'
-import PictureSource from '../components/PictureSource.vue'
+import PictureSource from '~/components/PictureSource.vue'
 
 useHead({
   title: 'Galería',
@@ -83,7 +83,7 @@ const initGallery = () => {
 @import "lightgallery/css/lightgallery.css";
 @import "lightgallery/css/lg-autoplay.css";
 // Lightgallery font, he tenido que hacer esto oara que salgan bien los iconos en las galerias:
-@import "../assets/css/ls.css";
+@import "~/assets/css/ls.css";
 
 #galleryRef {
   display: flex;

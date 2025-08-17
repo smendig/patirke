@@ -10,7 +10,7 @@
             class="xl"
             height="205"
             width="205"
-            src="../assets/images/patirke-mendiguren-logo.png"
+            src="~/assets/images/patirke-mendiguren-logo.png"
             alt="Patirke Mendiguren"
             loading="eager"
             fetchpriority="high"
@@ -19,7 +19,7 @@
             class="sm"
             height="100"
             width="250"
-            src="../assets/images/patirke-mendiguren-logo-small.png"
+            src="~/assets/images/patirke-mendiguren-logo-small.png"
             alt="Patirke Mendiguren"
             loading="eager"
           >
