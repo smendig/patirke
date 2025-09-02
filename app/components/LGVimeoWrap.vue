@@ -3,7 +3,7 @@
     id="vimeo-gallery"
     ref="vimeowrap"
   >
-    <template v-if="vMetaData.length === 0">
+    <template v-if="loading">
       <div
         v-for="n in props.vimeoIds.length"
         :key="n"
@@ -13,7 +13,7 @@
         <div class="skeleton-title" />
       </div>
     </template>
-    <template v-else>
+    <template v-else-if="vMetaData.length > 0">
       <a
         v-for="(vMeta, index) in vMetaData"
         :key="index"
@@ -31,6 +31,14 @@
           <h3>{{ vMeta.title }}</h3>
         </div>
       </a>
+    </template>
+    <template v-else>
+      <div
+        class="video-error"
+        role="status"
+      >
+        No se pudieron cargar los vídeos ahora mismo.
+      </div>
     </template>
   </div>
 </template>
@@ -115,21 +123,43 @@ const initGallery = () => {
   }
 }
 
+// Fetch with timeout support
+const fetchWithTimeout = async (url: string, opts: RequestInit & { timeout?: number } = {}): Promise<Response> => {
+  const { timeout = 6000, ...init } = opts
+  const controller = new AbortController()
+  const id = setTimeout(() => controller.abort(), timeout)
+  try {
+    return await fetch(url, { ...init, signal: controller.signal })
+  }
+  finally {
+    clearTimeout(id)
+  }
+}
+
+// Basic retry once per ID to reduce flakiness
+const fetchOEmbed = async (id: string, attempt = 1): Promise<VimeoVideo | undefined> => {
+  const url = `https://vimeo.com/api/oembed.json?url=https://vimeo.com/${id}`
+  try {
+    const res = await fetchWithTimeout(url, { timeout: 6000 })
+    if (!res.ok) {
+      throw new Error(`HTTP ${res.status}`)
+    }
+    return await res.json() as VimeoVideo
+  }
+  catch (err) {
+    console.warn(`[LGVimeoWrap] Failed to fetch oEmbed for ${id} (attempt ${attempt})`, err)
+    if (attempt < 2) {
+      // brief backoff then retry once
+      await new Promise(resolve => setTimeout(resolve, 500))
+      return await fetchOEmbed(id, attempt + 1)
+    }
+    return undefined
+  }
+}
+
 const getVideoVideosInfo = async (vimeoIds: string[]): Promise<VimeoVideo[]> => {
-  const response = await Promise.all(
-    vimeoIds.map(async (id) => {
-      const res = await fetch(
-        `https://vimeo.com/api/oembed.json?url=https://vimeo.com/${id}`,
-      )
-      if (!res.ok) {
-        return
-      }
-      const data = await res.json() as VimeoVideo
-      return data
-    }),
-  )
-  const filteredResponse = response.filter((o): o is VimeoVideo => o !== undefined)
-  return filteredResponse
+  const response = await Promise.all(vimeoIds.map(id => fetchOEmbed(id)))
+  return response.filter((o): o is VimeoVideo => o !== undefined)
 }
 
 onMounted(async () => {
