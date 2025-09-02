@@ -11,6 +11,10 @@ on:
 env:
   CNAME_DOMAIN: patirke.com
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -23,12 +27,24 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version-file: .nvmrc
+          cache: 'npm'
 
       - name: Install dependencies
         run: npm ci
 
       - name: Generate static site
         run: npm run generate
+
+      - name: Smoke test static output
+        run: |
+          npx -y serve -l 4173 -s .output/public & SERVER_PID=$!
+          trap 'kill $SERVER_PID' EXIT
+          npx -y wait-on http://localhost:4173
+          for p in / /curriculum/ /reel/ /escenas/ /musica/ /galeria/ /contacto/; do
+            echo "Checking $p"
+            curl -fsS "http://localhost:4173$p" > /dev/null
+          done
+          echo "All routes OK"
 
       - name: Deploy to Cloudflare Pages (Production)
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'

@@ -17,14 +17,13 @@ export default defineNuxtConfig({
         { property: 'og:type', content: 'website' },
       ],
     },
-    buildAssetsDir: '/assets/',
   },
   runtimeConfig: {
     public: {
       siteUrl: 'https://patirke.com',
     },
   },
-  compatibilityDate: '2025-05-21',
+  compatibilityDate: '2025-09-02',
   nitro: {
     static: true,
     prerender: {

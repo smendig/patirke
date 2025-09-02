@@ -18,7 +18,7 @@
           title="Ver código fuente en GitHub"
         >
           <img
-            src="../assets/images/social/github.svg"
+            src="/icons/github.svg"
             alt="GitHub"
             width="20"
             height="20"
