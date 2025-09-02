@@ -26,12 +26,4 @@ This project is a Nuxt 4 static site (SSG) using TypeScript and SCSS. Node versi
 - SEO: Canonical link is keyed to avoid duplicates and follows current trailing-slash style. If strictness is desired, configure router `trailingSlash`.
 
 
-## Notes from Recent Improvements
-- Moved logos/icons to `public/icons` and switched templates to absolute paths.
-- Removed unused custom fonts and dead CSS; rely on system fonts.
-- Replaced `<a href>` and `<router-link>` with `<NuxtLink>`; improved nav semantics and accessibility.
-- Keyed canonical link to prevent duplication.
-- Fixed slideshow timer typing and startup logic.
-- Hardened LightGallery Vimeo wrapper: sanitized captions, timeout + retry, and error state.
-
 Keep it simple, static-friendly, and consistent.
