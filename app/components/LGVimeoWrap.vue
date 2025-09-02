@@ -14,11 +14,20 @@
       </div>
     </template>
     <template v-else-if="vMetaData.length > 0">
+      <div
+        v-if="partialMissing"
+        class="video-note"
+        role="status"
+        aria-live="polite"
+      >
+        Algunos vídeos no están disponibles.
+      </div>
       <a
         v-for="(vMeta, index) in vMetaData"
         :key="index"
         class="video-card"
         :href="`https://vimeo.com/${vMeta.video_id}`"
+        :data-src="`https://vimeo.com/${vMeta.video_id}`"
         :data-sub-html="subHtml(vMeta)"
       >
         <img
@@ -72,13 +81,15 @@ type VimeoVideo = {
   uri: string
 }
 
-useHead({
-  script: [{
-    src: 'https://player.vimeo.com/api/player.js',
-    defer: true,
-    async: true,
-  }],
-})
+// Defer adding Vimeo player script until at least one playable item exists
+const vimeoScriptAdded = ref(false)
+
+type LgGalleryItem = {
+  src: string
+  thumb?: string
+  poster?: string
+  subHtml?: string
+}
 
 const props = defineProps<{
   vimeoIds: string[]
@@ -105,25 +116,66 @@ const subHtml = (v: Pick<VimeoVideo, 'title' | 'video_id'>): string => {
   return `<h3>${safeTitle}</h3><p><a target="_blank" rel="noopener" href="${url}">${url}</a></p>`
 }
 
+const buildDynamicEl = (): LgGalleryItem[] =>
+  vMetaData.value.map((v) => {
+    const id = String(v.video_id)
+    const src = `https://vimeo.com/${id}`
+    const thumb = `https://vumbnail.com/${id}_large.jpg`
+    return { src, thumb, poster: thumb, subHtml: subHtml(v) }
+  })
+
+let clickHandler: ((e: Event) => void) | null = null
+
 const initGallery = () => {
-  if (vimeowrap.value) {
-    galleryInstance = lightGallery(vimeowrap.value, {
-      speed: 500,
-      plugins: [lgVideo, lgThumbnail],
-      videojs: true,
+  if (!vimeowrap.value) return
+  galleryInstance = lightGallery(vimeowrap.value, {
+    speed: 500,
+    plugins: [lgVideo, lgThumbnail],
+    dynamic: true,
+    dynamicEl: buildDynamicEl(),
+    videojs: true,
+    download: false,
+    subHtmlSelectorRelative: true,
+    licenseKey: '0',
+    mobileSettings: {
+      controls: true,
+      showCloseIcon: true,
       download: false,
-      subHtmlSelectorRelative: true,
-      licenseKey: '0',
-      mobileSettings: {
-        controls: true,
-        showCloseIcon: true,
-        download: false,
-      },
-    })
+    },
+  })
+
+  // Delegate click to open the correct index in dynamic mode
+  clickHandler = (e: Event) => {
+    const target = e.target as HTMLElement | null
+    if (!target || !vimeowrap.value || !galleryInstance) return
+    const anchor = target.closest('a.video-card') as HTMLAnchorElement | null
+    if (!anchor || !vimeowrap.value.contains(anchor)) return
+    // Allow default behavior for new-tab/middle click
+    if (e instanceof MouseEvent && (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button === 1)) {
+      return
+    }
+    e.preventDefault()
+    const anchors = Array.from(vimeowrap.value.querySelectorAll('a.video-card'))
+    const index = anchors.indexOf(anchor)
+    if (index >= 0) {
+      galleryInstance.openGallery(index, anchor)
+    }
   }
+  vimeowrap.value.addEventListener('click', clickHandler)
 }
 
-// Fetch with timeout support
+// Retries per ID (transient only)
+const retryAttempts = 1
+
+// Simple in-memory cache shared for the lifetime of this SPA session
+type GlobalWithCache = typeof globalThis & {
+  __vimeoOEmbedCache?: Map<string, VimeoVideo | null>
+  __vimeoOEmbedInflight?: Map<string, Promise<VimeoVideo | null>>
+}
+const g = globalThis as GlobalWithCache
+const vimeoCache = g.__vimeoOEmbedCache ||= new Map<string, VimeoVideo | null>()
+const vimeoInflight = g.__vimeoOEmbedInflight ||= new Map<string, Promise<VimeoVideo | null>>()
+
 const fetchWithTimeout = async (url: string, opts: RequestInit & { timeout?: number } = {}): Promise<Response> => {
   const { timeout = 6000, ...init } = opts
   const controller = new AbortController()
@@ -136,43 +188,119 @@ const fetchWithTimeout = async (url: string, opts: RequestInit & { timeout?: num
   }
 }
 
-// Basic retry once per ID to reduce flakiness
-const fetchOEmbed = async (id: string, attempt = 1): Promise<VimeoVideo | undefined> => {
-  const url = `https://vimeo.com/api/oembed.json?url=https://vimeo.com/${id}`
-  try {
-    const res = await fetchWithTimeout(url, { timeout: 6000 })
-    if (!res.ok) {
-      throw new Error(`HTTP ${res.status}`)
-    }
-    return await res.json() as VimeoVideo
+const getOEmbed = async (id: string): Promise<VimeoVideo | undefined> => {
+  // 1) Memory cache
+  if (vimeoCache.has(id)) {
+    const cached = vimeoCache.get(id)
+    return cached ?? undefined
   }
-  catch (err) {
-    console.warn(`[LGVimeoWrap] Failed to fetch oEmbed for ${id} (attempt ${attempt})`, err)
-    if (attempt < 2) {
-      // brief backoff then retry once
-      await new Promise(resolve => setTimeout(resolve, 500))
-      return await fetchOEmbed(id, attempt + 1)
-    }
-    return undefined
+  // 2) In-flight request de-duplication
+  const inflight = vimeoInflight.get(id)
+  if (inflight) {
+    const res = await inflight
+    return res ?? undefined
   }
+  // 3) Fetch with transient-only retry
+  const req = (async (): Promise<VimeoVideo | null> => {
+    const url = `https://vimeo.com/api/oembed.json?url=https://vimeo.com/${id}`
+    let attempts = 0
+    while (true) {
+      attempts++
+      try {
+        const res = await fetchWithTimeout(url, { timeout: 6000 })
+        if (!res.ok) {
+          if ([400, 401, 403, 404, 422].includes(res.status)) {
+            return null
+          }
+          if (attempts <= retryAttempts && ([408, 429].includes(res.status) || (res.status >= 500 && res.status <= 599))) {
+            await new Promise(r => setTimeout(r, 400))
+            continue
+          }
+          return null
+        }
+        return await res.json() as VimeoVideo
+      }
+      catch (err: unknown) {
+        const isAbort = typeof err === 'object' && err !== null && 'name' in err && (err as { name?: string }).name === 'AbortError'
+        const isNetwork = err instanceof TypeError
+        if ((isAbort || isNetwork) && attempts <= retryAttempts) {
+          await new Promise(r => setTimeout(r, 400))
+          continue
+        }
+        return null
+      }
+    }
+  })()
+  vimeoInflight.set(id, req)
+  const result = await req
+  vimeoInflight.delete(id)
+  vimeoCache.set(id, result)
+  return result ?? undefined
 }
 
-const getVideoVideosInfo = async (vimeoIds: string[]): Promise<VimeoVideo[]> => {
-  const response = await Promise.all(vimeoIds.map(id => fetchOEmbed(id)))
-  return response.filter((o): o is VimeoVideo => o !== undefined)
+const partialMissing = computed(() => vMetaData.value.length > 0 && vMetaData.value.length < props.vimeoIds.length)
+
+const getVideoVideosInfo = async (vimeoIds: string[]): Promise<void> => {
+  const ordered: Array<VimeoVideo | undefined> = Array(vimeoIds.length).fill(undefined)
+
+  await Promise.allSettled(
+    vimeoIds.map(async (id, index) => {
+      const data = await getOEmbed(id)
+      if (data) {
+        ordered[index] = data
+        const items = ordered.filter((o): o is VimeoVideo => o !== undefined)
+        vMetaData.value = items
+
+        if (items.length === 1 && loading.value) {
+          loading.value = false
+          nextTick(() => {
+            if (!galleryInstance && vMetaData.value.length) {
+              initGallery()
+            }
+          })
+        }
+      }
+    }),
+  )
+
+  if (loading.value) {
+    loading.value = false
+  }
+  nextTick(() => {
+    if (vMetaData.value.length) {
+      if (galleryInstance) galleryInstance.refresh(buildDynamicEl())
+      else initGallery()
+    }
+  })
 }
 
 onMounted(async () => {
-  vMetaData.value = await getVideoVideosInfo(props.vimeoIds)
-  loading.value = false
-  nextTick(() => {
-    initGallery()
-  })
+  await getVideoVideosInfo(props.vimeoIds)
 })
+
+// Load Vimeo player script only when there is at least one playable item
+watch(
+  () => vMetaData.value.length,
+  (len) => {
+    if (len > 0 && !vimeoScriptAdded.value) {
+      vimeoScriptAdded.value = true
+      useHead({
+        script: [{
+          src: 'https://player.vimeo.com/api/player.js',
+          defer: true,
+          async: true,
+        }],
+      })
+    }
+  },
+)
 
 onUnmounted(() => {
   if (galleryInstance) {
     galleryInstance.destroy()
+  }
+  if (vimeowrap.value && clickHandler) {
+    vimeowrap.value.removeEventListener('click', clickHandler)
   }
 })
 </script>
@@ -188,6 +316,13 @@ onUnmounted(() => {
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 32px;
   padding: 24px 0;
+
+  .video-note {
+    grid-column: 1 / -1;
+    color: #bbb;
+    font-size: 0.95rem;
+    padding: 4px 2px 8px 2px;
+  }
 
   .video-card {
     position: relative;
