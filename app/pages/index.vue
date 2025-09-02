@@ -23,29 +23,28 @@ useHead({
   ],
 })
 const imgs = ref(['/portada/patirke121', '/portada/patirke122', '/portada/patirke123'])
-const activeIndex = ref(999999)
-let interval: number | null = null
+const activeIndex = ref(-1)
+let timer: ReturnType<typeof setTimeout> | null = null
+
+const scheduleNext = (delay = 4500) => {
+  timer = setTimeout(nextImg, delay)
+}
 
 const nextImg = () => {
-  if (activeIndex.value + 1 >= imgs.value.length) {
-    activeIndex.value = 0
-  }
-  else {
-    activeIndex.value += 1
-  }
-  interval = setTimeout(nextImg, 4500) as unknown as number
+  activeIndex.value = (activeIndex.value + 1) % imgs.value.length
+  scheduleNext()
 }
 
 onMounted(() => {
-  setTimeout(() => {
-    nextImg()
-  }, 100)
+  // Controlled first display: show first image, then start timer
+  activeIndex.value = 0
+  scheduleNext()
 })
 
 onUnmounted(() => {
-  if (interval) {
-    clearTimeout(interval)
-    interval = null
+  if (timer) {
+    clearTimeout(timer)
+    timer = null
   }
 })
 </script>
