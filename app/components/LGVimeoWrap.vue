@@ -115,7 +115,6 @@ const subHtml = (v: Pick<VimeoVideo, 'title' | 'video_id'>): string => {
   const url = `https://vimeo.com/${id}`
   return `<h3>${safeTitle}</h3><p><a target="_blank" rel="noopener" href="${url}">${url}</a></p>`
 }
-
 const buildDynamicEl = (): LgGalleryItem[] =>
   vMetaData.value.map((v) => {
     const id = String(v.video_id)
