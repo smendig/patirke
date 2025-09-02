@@ -23,10 +23,21 @@ jobs:
         run: npm ci
 
       - name: Lint check
-        run: npm run lint
+        run: npm run lint -- --max-warnings=0
 
       - name: TypeScript check
         run: npm run typecheck
 
       - name: Build check
         run: npm run generate
+
+      - name: Smoke test static output
+        run: |
+          npx -y serve -l 4173 -s .output/public & SERVER_PID=$!
+          trap 'kill $SERVER_PID' EXIT
+          npx -y wait-on http://localhost:4173
+          for p in / /curriculum/ /reel/ /escenas/ /musica/ /galeria/ /contacto/; do
+            echo "Checking $p"
+            curl -fsS "http://localhost:4173$p" > /dev/null
+          done
+          echo "All routes OK"
