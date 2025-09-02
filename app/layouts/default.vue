@@ -22,6 +22,7 @@
             src="/icons/patirke-mendiguren-logo-small.png"
             alt="Patirke Mendiguren"
             loading="eager"
+            fetchpriority="high"
           >
         </div>
       </NuxtLink>
