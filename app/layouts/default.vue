@@ -1,8 +1,8 @@
 <template>
   <div class="container">
     <header>
-      <a
-        href="/"
+      <NuxtLink
+        to="/"
         aria-label="Volver a la página principal"
       >
         <div class="logo">
@@ -10,7 +10,7 @@
             class="xl"
             height="205"
             width="205"
-            src="~/assets/images/patirke-mendiguren-logo.png"
+            src="/icons/patirke-mendiguren-logo.png"
             alt="Patirke Mendiguren"
             loading="eager"
             fetchpriority="high"
@@ -19,12 +19,12 @@
             class="sm"
             height="100"
             width="250"
-            src="~/assets/images/patirke-mendiguren-logo-small.png"
+            src="/icons/patirke-mendiguren-logo-small.png"
             alt="Patirke Mendiguren"
             loading="eager"
           >
         </div>
-      </a>
+      </NuxtLink>
     </header>
     <nav
       class="menu"
@@ -80,6 +80,7 @@ watch(
       link: [
         {
           rel: 'canonical',
+          key: 'canonical',
           href:
             fullPath === '/'
               ? config.public.siteUrl

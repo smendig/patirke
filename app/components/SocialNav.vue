@@ -7,7 +7,7 @@
         rel="noopener"
       >
         <img
-          src="../assets/images/social/imdb-256-black.webp"
+          src="/icons/imdb-256-black.webp"
           alt="imdb"
         >
       </a>
@@ -19,7 +19,7 @@
         rel="noopener"
       >
         <img
-          src="../assets/images/social/instagram-256-black.webp"
+          src="/icons/instagram-256-black.webp"
           alt="instagram"
         >
       </a>

@@ -1,25 +1,25 @@
 <template>
   <nav id="nav">
     <div>
-      <router-link :to="'/'"><span>Inicio</span></router-link>
+      <NuxtLink :to="'/'"><span>Inicio</span></NuxtLink>
     </div>
     <div>
-      <router-link :to="'/curriculum/'"><span>Curriculum</span></router-link>
+      <NuxtLink :to="'/curriculum/'"><span>Curriculum</span></NuxtLink>
     </div>
     <div>
-      <router-link :to="'/reel/'"><span>Reel</span></router-link>
+      <NuxtLink :to="'/reel/'"><span>Reel</span></NuxtLink>
     </div>
     <div>
-      <router-link :to="'/escenas/'"><span>Escenas</span></router-link>
+      <NuxtLink :to="'/escenas/'"><span>Escenas</span></NuxtLink>
     </div>
     <div>
-      <router-link :to="'/musica/'"><span>Música</span></router-link>
+      <NuxtLink :to="'/musica/'"><span>Música</span></NuxtLink>
     </div>
     <div>
-      <router-link :to="'/galeria/'"><span>Galería</span></router-link>
+      <NuxtLink :to="'/galeria/'"><span>Galería</span></NuxtLink>
     </div>
     <div>
-      <router-link :to="'/contacto/'"><span>Contacto</span></router-link>
+      <NuxtLink :to="'/contacto/'"><span>Contacto</span></NuxtLink>
     </div>
   </nav>
 </template>
