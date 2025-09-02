@@ -19,7 +19,7 @@
         :key="index"
         class="video-card"
         :href="`https://vimeo.com/${vMeta.video_id}`"
-        :data-sub-html="`<h3>${vMeta.title}</h3><p><a target='_blank' href='https://vimeo.com/${vMeta.video_id}'>https://vimeo.com/${vMeta.video_id}</a></p>`"
+        :data-sub-html="subHtml(vMeta)"
       >
         <img
           width="500"
@@ -80,6 +80,22 @@ const vMetaData = ref<VimeoVideo[]>([])
 const loading = ref(true)
 let galleryInstance: ReturnType<typeof lightGallery> | null = null
 const vimeowrap = ref<HTMLElement | null>(null)
+
+// Escape potentially unsafe characters to prevent XSS when injecting into plugin HTML
+const escapeHtml = (input: string): string =>
+  input
+    .replaceAll(/&/g, '&amp;')
+    .replaceAll(/</g, '&lt;')
+    .replaceAll(/>/g, '&gt;')
+    .replaceAll(/"/g, '&quot;')
+    .replaceAll(/'/g, '&#39;')
+
+const subHtml = (v: Pick<VimeoVideo, 'title' | 'video_id'>): string => {
+  const safeTitle = escapeHtml(v.title ?? '')
+  const id = String(v.video_id)
+  const url = `https://vimeo.com/${id}`
+  return `<h3>${safeTitle}</h3><p><a target="_blank" rel="noopener" href="${url}">${url}</a></p>`
+}
 
 const initGallery = () => {
   if (vimeowrap.value) {
