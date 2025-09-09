@@ -3,6 +3,7 @@
   "extends": [
     "config:recommended"
   ],
+  "prTitle": "{{{commitMessage}}} [skip ci]",
   "schedule": [
     "every weekend"
   ],
