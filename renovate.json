@@ -3,7 +3,6 @@
   "extends": [
     "config:recommended"
   ],
-  "prTitle": "{{{commitMessage}}} [skip ci]",
   "schedule": [
     "every weekend"
   ],
@@ -13,6 +12,7 @@
   "prConcurrentLimit": 1,
   "automerge": false,
   "dependencyDashboard": false,
+  "commitMessageSuffix": "[skip ci]",
   "packageRules": [
     {
       "matchDepTypes": [
