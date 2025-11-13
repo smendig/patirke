@@ -12,7 +12,6 @@
   "prConcurrentLimit": 1,
   "automerge": false,
   "dependencyDashboard": false,
-  "commitMessageSuffix": "[skip ci]",
   "packageRules": [
     {
       "matchDepTypes": [
