@@ -17,6 +17,7 @@ concurrency:
 
 jobs:
   build-and-deploy:
+    if: ${{ !((github.event_name == 'pull_request' && github.event.pull_request.user.login == 'renovate[bot]') || (github.event_name == 'push' && startsWith(github.actor, 'renovate'))) }}
     runs-on: ubuntu-latest
 
     steps:
@@ -47,7 +48,6 @@ jobs:
           echo "All routes OK"
 
       - name: Deploy to Cloudflare Pages (Production)
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main' && !contains(github.event.head_commit.message, 'renovate/') && !startsWith(github.actor, 'renovate')
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.PATIRKE_PAGES_CLOUDFLARE_API_TOKEN }}
@@ -64,7 +64,6 @@ jobs:
 
       # Purge cache only on production deploy
       - name: Purge Cloudflare Cache
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main' && !contains(github.event.head_commit.message, 'renovate/') && !startsWith(github.actor, 'renovate')
         run: |
           curl -X POST "https://api.cloudflare.com/client/v4/zones/${{ secrets.PATIRKE_CLOUDFLARE_ZONE_ID }}/purge_cache" \
             -H "Authorization: Bearer ${{ secrets.PATIRKE_CACHE_CLOUDFLARE_API_TOKEN }}" \
