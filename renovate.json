@@ -4,9 +4,9 @@
     "config:recommended"
   ],
   "schedule": [
-    "every weekend"
+    "at any time"
   ],
-  "minimumReleaseAge": "7 days",
+  "minimumReleaseAge": "3 days",
   "internalChecksFilter": "strict",
   "prCreation": "not-pending",
   "prConcurrentLimit": 1,
