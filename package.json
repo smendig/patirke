@@ -18,10 +18,10 @@
     "eslint-import-resolver-node": "0.3.9",
     "eslint-import-resolver-typescript": "4.4.4",
     "nuxt": "4.2.2",
-    "sass": "1.97.0"
+    "sass": "1.97.1"
   },
   "dependencies": {
     "lightgallery": "2.9.0",
-    "vue-tsc": "3.1.8"
+    "vue-tsc": "3.2.1"
   }
 }
