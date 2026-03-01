@@ -8,49 +8,42 @@
         <NuxtLink
           :to="'/'"
           exact-active-class="is-active"
-          aria-current-value="page"
         ><span>Inicio</span></NuxtLink>
       </li>
       <li>
         <NuxtLink
           :to="'/curriculum/'"
           exact-active-class="is-active"
-          aria-current-value="page"
         ><span>Curriculum</span></NuxtLink>
       </li>
       <li>
         <NuxtLink
           :to="'/reel/'"
           exact-active-class="is-active"
-          aria-current-value="page"
         ><span>Reel</span></NuxtLink>
       </li>
       <li>
         <NuxtLink
           :to="'/escenas/'"
           exact-active-class="is-active"
-          aria-current-value="page"
         ><span>Escenas</span></NuxtLink>
       </li>
       <li>
         <NuxtLink
           :to="'/musica/'"
           exact-active-class="is-active"
-          aria-current-value="page"
         ><span>Música</span></NuxtLink>
       </li>
       <li>
         <NuxtLink
           :to="'/galeria/'"
           exact-active-class="is-active"
-          aria-current-value="page"
         ><span>Galería</span></NuxtLink>
       </li>
       <li>
         <NuxtLink
           :to="'/contacto/'"
           exact-active-class="is-active"
-          aria-current-value="page"
         ><span>Contacto</span></NuxtLink>
       </li>
     </ul>

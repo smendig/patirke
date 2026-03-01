@@ -5,6 +5,7 @@
         href="https://www.imdb.com/name/nm6263976/"
         target="_blank"
         rel="noopener"
+        aria-label="Perfil en IMDb"
       >
         <img
           src="/icons/imdb-256-black.webp"
@@ -17,6 +18,7 @@
         href="https://www.instagram.com/patirke.m/"
         target="_blank"
         rel="noopener"
+        aria-label="Perfil en Instagram"
       >
         <img
           src="/icons/instagram-256-black.webp"

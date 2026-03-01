@@ -1,28 +1,35 @@
 <template>
-  <picture>
-    <source
-      :srcset="`${imgSrc}.webp`"
-      type="image/webp"
-    >
-    <source
-      :srcset="`${imgSrc}.jpg`"
-      type="image/jpeg"
-    >
-    <img
-      :src="`${imgSrc}.jpg`"
-      class="responsive-img"
-    >
-  </picture>
+  <NuxtPicture
+    :src="`${imgSrc}.jpg`"
+    :alt="alt || ''"
+    :loading="loading"
+    :img-attrs="imgAttrs"
+    format="webp,jpg"
+  />
 </template>
 
 <script setup lang="ts">
-defineProps<{
+const props = defineProps<{
   imgSrc: string
+  alt?: string
+  loading?: 'lazy' | 'eager'
+  fetchpriority?: 'high' | 'low' | 'auto'
 }>()
+
+const imgAttrs = computed(() => ({
+  class: 'responsive-img',
+  ...(props.fetchpriority ? { fetchpriority: props.fetchpriority } : {}),
+}))
 </script>
 
 <style scoped>
-.responsive-img {
+:deep(picture) {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+:deep(.responsive-img) {
   width: 100%;
   height: 100%;
   object-fit: cover;

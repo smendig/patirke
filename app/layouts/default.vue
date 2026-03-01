@@ -27,13 +27,10 @@
         </div>
       </NuxtLink>
     </header>
-    <nav
-      class="menu"
-      aria-label="Navegación principal"
-    >
+    <div class="menu">
       <AppNav />
       <SocialNav />
-    </nav>
+    </div>
     <main class="main">
       <slot />
     </main>
@@ -45,10 +42,9 @@
 import AppFooter from '~/components/AppFooter.vue'
 import AppNav from '~/components/AppNav.vue'
 import SocialNav from '~/components/SocialNav.vue'
-import { useHead, useRuntimeConfig, useRoute, watch } from '#imports'
+import { useHead } from '#imports'
 
-const config = useRuntimeConfig()
-const route = useRoute()
+const { url: siteUrl } = useSiteConfig()
 useHead({
   script: [
     {
@@ -58,8 +54,8 @@ useHead({
         '@type': 'Person',
         'name': 'Patirke Mendiguren',
         'jobTitle': 'Actriz y Cantante',
-        'url': 'https://patirke.com/',
-        'image': 'https://patirke.com/portada/patirke121.jpg',
+        'url': `${siteUrl}/`,
+        'image': `${siteUrl}/portada/patirke121.jpg`,
         'sameAs': [
           'https://www.imdb.com/name/nm6263976/',
           'https://www.instagram.com/patirke.m/',
@@ -72,26 +68,12 @@ useHead({
       name: 'robots',
       content: 'index, follow',
     },
+    {
+      name: 'theme-color',
+      content: '#1a1a1a',
+    },
   ],
 })
-watch(
-  () => route.fullPath,
-  (fullPath) => {
-    useHead({
-      link: [
-        {
-          rel: 'canonical',
-          key: 'canonical',
-          href:
-            fullPath === '/'
-              ? config.public.siteUrl
-              : `${config.public.siteUrl}${fullPath}`,
-        },
-      ],
-    })
-  },
-  { immediate: true },
-)
 </script>
 
 <style lang="scss">

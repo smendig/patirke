@@ -1,7 +1,7 @@
 import { defineNuxtConfig } from 'nuxt/config'
 
 export default defineNuxtConfig({
-  modules: ['@nuxt/eslint'],
+  modules: ['@nuxt/eslint', '@nuxtjs/sitemap', '@nuxt/image'],
   app: {
     head: {
       htmlAttrs: {
@@ -9,19 +9,10 @@ export default defineNuxtConfig({
       },
       viewport: 'width=device-width, initial-scale=1',
       charset: 'utf-8',
-      meta: [
-        { property: 'og:title', content: 'Patirke Mendiguren - Actriz y Cantante' },
-        { property: 'og:description', content: 'Portfolio oficial de Patirke Mendiguren, actriz y cantante.' },
-        { property: 'og:image', content: 'https://patirke.com/portada/patirke121.jpg' },
-        { property: 'og:url', content: 'https://patirke.com' },
-        { property: 'og:type', content: 'website' },
-      ],
     },
   },
-  runtimeConfig: {
-    public: {
-      siteUrl: 'https://patirke.com',
-    },
+  site: {
+    url: 'https://patirke.com',
   },
   compatibilityDate: '2025-09-02',
   nitro: {
@@ -39,5 +30,8 @@ export default defineNuxtConfig({
     config: {
       stylistic: true,
     },
+  },
+  image: {
+    format: ['webp', 'jpeg'],
   },
 })

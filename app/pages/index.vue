@@ -3,24 +3,25 @@
     <div
       v-for="(img, index) in imgs"
       :key="index"
+      :class="{ 'active': index === activeIndex, 'slideshow-slide': true }"
     >
       <PictureSource
         :img-src="img"
-        :class="{ 'active': index === activeIndex, 'slideshow-image': true }"
+        alt="Patirke Mendiguren - Actriz y Cantante"
+        :loading="index === 0 ? 'eager' : 'lazy'"
+        :fetchpriority="index === 0 ? 'high' : 'auto'"
       />
     </div>
   </main>
 </template>
 
 <script setup lang="ts">
-useHead({
-  title: 'Patirke Mendiguren - Actriz y Cantante',
-  meta: [
-    {
-      name: 'description',
-      content: 'Web oficial de Patirke Mendiguren, actriz y cantante. Descubre su curriculum, galería, vídeos, música y contacto profesional.',
-    },
-  ],
+import { useSocialMeta } from '~/composables/useSocialMeta'
+
+useSocialMeta({
+  title: 'Inicio',
+  description: 'Web oficial de Patirke Mendiguren, actriz y cantante. Descubre su curriculum, galería, vídeos, música y contacto profesional.',
+  urlPath: '/',
 })
 const imgs = ref(['/portada/patirke121', '/portada/patirke122', '/portada/patirke123'])
 const activeIndex = ref(-1)
@@ -53,16 +54,25 @@ onUnmounted(() => {
 .page {
   position: relative;
   height: 100vh;
+  overflow: hidden;
 
-  .slideshow-image {
-    width: 100%;
-    height: 100%;
-    opacity: 0;
+  .slideshow-slide {
     position: absolute;
+    inset: 0;
+    opacity: 0;
     transition: opacity 1s;
+
+    // Ensure NuxtPicture's internal elements fill the slide
+    :deep(picture),
+    :deep(img) {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
   }
 
-  .slideshow-image.active {
+  .slideshow-slide.active {
     opacity: 1;
   }
 }

@@ -6,13 +6,11 @@
 </template>
 
 <script setup lang="ts">
-useHead({
+import { useSocialMeta } from '~/composables/useSocialMeta'
+
+useSocialMeta({
   title: 'Escenas',
-  meta: [
-    {
-      name: 'description',
-      content: 'Reel y Escenas en cine y televisión',
-    },
-  ],
+  description: 'Reel y Escenas en cine y televisión de Patirke Mendiguren.',
+  urlPath: '/escenas',
 })
 </script>
