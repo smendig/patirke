@@ -8,6 +8,9 @@
       <PictureSource
         :img-src="img"
         alt="Patirke Mendiguren - Actriz y Cantante"
+        sizes="100vw"
+        :loading="index === 0 ? 'eager' : 'lazy'"
+        :fetchpriority="index === 0 ? 'high' : 'auto'"
       />
     </div>
   </main>

@@ -13,6 +13,8 @@
         <PictureSource
           class="gallery-thumb"
           :img-src="`/gallery/th/${image}`"
+          sizes="(max-width: 768px) 120px, 200px"
+          loading="lazy"
           height="375"
           width="250"
         />

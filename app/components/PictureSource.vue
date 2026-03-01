@@ -2,16 +2,26 @@
   <NuxtPicture
     :src="`${imgSrc}.jpg`"
     :alt="alt || ''"
-    :img-attrs="{ class: 'responsive-img' }"
+    :sizes="sizes"
+    :loading="loading"
+    :img-attrs="imgAttrs"
     format="webp,jpg"
   />
 </template>
 
 <script setup lang="ts">
-defineProps<{
+const props = defineProps<{
   imgSrc: string
   alt?: string
+  sizes?: string
+  loading?: 'lazy' | 'eager'
+  fetchpriority?: 'high' | 'low' | 'auto'
 }>()
+
+const imgAttrs = computed(() => ({
+  class: 'responsive-img',
+  ...(props.fetchpriority ? { fetchpriority: props.fetchpriority } : {}),
+}))
 </script>
 
 <style scoped>
