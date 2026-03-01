@@ -14,11 +14,6 @@ export default defineNuxtConfig({
   site: {
     url: 'https://patirke.com',
   },
-  runtimeConfig: {
-    public: {
-      siteUrl: 'https://patirke.com',
-    },
-  },
   compatibilityDate: '2025-09-02',
   nitro: {
     static: true,

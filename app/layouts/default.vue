@@ -42,9 +42,9 @@
 import AppFooter from '~/components/AppFooter.vue'
 import AppNav from '~/components/AppNav.vue'
 import SocialNav from '~/components/SocialNav.vue'
-import { useHead, useRuntimeConfig } from '#imports'
+import { useHead } from '#imports'
 
-const config = useRuntimeConfig()
+const { url: siteUrl } = useSiteConfig()
 useHead({
   script: [
     {
@@ -54,8 +54,8 @@ useHead({
         '@type': 'Person',
         'name': 'Patirke Mendiguren',
         'jobTitle': 'Actriz y Cantante',
-        'url': `${config.public.siteUrl}/`,
-        'image': `${config.public.siteUrl}/portada/patirke121.jpg`,
+        'url': `${siteUrl}/`,
+        'image': `${siteUrl}/portada/patirke121.jpg`,
         'sameAs': [
           'https://www.imdb.com/name/nm6263976/',
           'https://www.instagram.com/patirke.m/',
