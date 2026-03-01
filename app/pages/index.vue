@@ -3,7 +3,7 @@
     <div
       v-for="(img, index) in imgs"
       :key="index"
-      :class="{ active: index === activeIndex, 'slideshow-slide': true }"
+      :class="{ 'active': index === activeIndex, 'slideshow-slide': true }"
     >
       <PictureSource
         :img-src="img"
@@ -75,4 +75,3 @@ onUnmounted(() => {
   }
 }
 </style>
-
