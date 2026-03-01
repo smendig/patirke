@@ -2,7 +2,6 @@
   <NuxtPicture
     :src="`${imgSrc}.jpg`"
     :alt="alt || ''"
-    :sizes="sizes"
     :loading="loading"
     :img-attrs="imgAttrs"
     format="webp,jpg"
@@ -13,7 +12,6 @@
 const props = defineProps<{
   imgSrc: string
   alt?: string
-  sizes?: string
   loading?: 'lazy' | 'eager'
   fetchpriority?: 'high' | 'low' | 'auto'
 }>()
