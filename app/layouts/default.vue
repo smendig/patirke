@@ -72,6 +72,10 @@ useHead({
       name: 'robots',
       content: 'index, follow',
     },
+    {
+      name: 'theme-color',
+      content: '#1a1a1a',
+    },
   ],
 })
 watch(
