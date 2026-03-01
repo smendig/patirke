@@ -27,13 +27,10 @@
         </div>
       </NuxtLink>
     </header>
-    <nav
-      class="menu"
-      aria-label="Navegación principal"
-    >
+    <div class="menu">
       <AppNav />
       <SocialNav />
-    </nav>
+    </div>
     <main class="main">
       <slot />
     </main>

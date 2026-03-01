@@ -174,6 +174,7 @@
           <a
             href="/CV/CV-Patirke-Ene-2023.pdf"
             target="_blank"
+            rel="noopener"
           >
             <div class="cv-download-content">
               <img

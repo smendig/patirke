@@ -13,6 +13,7 @@
         <PictureSource
           class="gallery-thumb"
           :img-src="`/gallery/th/${image}`"
+          alt="Foto de Patirke Mendiguren"
           loading="lazy"
           height="375"
           width="250"
