@@ -21,6 +21,8 @@
     "sass": "1.97.1"
   },
   "dependencies": {
+    "@nuxt/image": "^2.0.0",
+    "@nuxtjs/sitemap": "^7.6.0",
     "lightgallery": "2.9.0",
     "vue-tsc": "3.2.1"
   }

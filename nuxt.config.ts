@@ -1,7 +1,7 @@
 import { defineNuxtConfig } from 'nuxt/config'
 
 export default defineNuxtConfig({
-  modules: ['@nuxt/eslint'],
+  modules: ['@nuxt/eslint', '@nuxtjs/sitemap', '@nuxt/image'],
   app: {
     head: {
       htmlAttrs: {
@@ -15,8 +15,13 @@ export default defineNuxtConfig({
         { property: 'og:image', content: 'https://patirke.com/portada/patirke121.jpg' },
         { property: 'og:url', content: 'https://patirke.com' },
         { property: 'og:type', content: 'website' },
+        { name: 'twitter:card', content: 'summary_large_image' },
+        { name: 'twitter:image', content: 'https://patirke.com/portada/patirke121.jpg' },
       ],
     },
+  },
+  site: {
+    url: 'https://patirke.com',
   },
   runtimeConfig: {
     public: {
@@ -39,5 +44,8 @@ export default defineNuxtConfig({
     config: {
       stylistic: true,
     },
+  },
+  image: {
+    format: ['webp', 'jpeg'],
   },
 })

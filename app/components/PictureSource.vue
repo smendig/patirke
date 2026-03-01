@@ -1,23 +1,16 @@
 <template>
-  <picture>
-    <source
-      :srcset="`${imgSrc}.webp`"
-      type="image/webp"
-    >
-    <source
-      :srcset="`${imgSrc}.jpg`"
-      type="image/jpeg"
-    >
-    <img
-      :src="`${imgSrc}.jpg`"
-      class="responsive-img"
-    >
-  </picture>
+  <NuxtPicture
+    :src="`${imgSrc}.jpg`"
+    :alt="alt || ''"
+    :img-attrs="{ class: 'responsive-img' }"
+    format="webp,jpg"
+  />
 </template>
 
 <script setup lang="ts">
 defineProps<{
   imgSrc: string
+  alt?: string
 }>()
 </script>
 

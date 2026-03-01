@@ -25,15 +25,12 @@
 import lightGallery from 'lightgallery'
 import lgAutoplay from 'lightgallery/plugins/autoplay/lg-autoplay.umd.js'
 import PictureSource from '~/components/PictureSource.vue'
+import { useSocialMeta } from '~/composables/useSocialMeta'
 
-useHead({
+useSocialMeta({
   title: 'Galería',
-  meta: [
-    {
-      name: 'description',
-      content: 'Galería de fotos',
-    },
-  ],
+  description: 'Galería de fotos de Patirke Mendiguren, actriz.',
+  urlPath: '/galeria',
 })
 
 const images = [

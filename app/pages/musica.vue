@@ -6,7 +6,11 @@
 </template>
 
 <script setup lang="ts">
-useHead({
+import { useSocialMeta } from '~/composables/useSocialMeta'
+
+useSocialMeta({
   title: 'Música',
+  description: 'Proyectos musicales y canciones de Patirke Mendiguren.',
+  urlPath: '/musica',
 })
 </script>

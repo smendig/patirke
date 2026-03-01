@@ -2,7 +2,7 @@
   <footer class="footer">
     <div class="footercontainer">
       <div class="footer-main-modern">
-        <span class="footer-copyright">© 2025 Patirke Mendiguren</span>
+        <span class="footer-copyright">© 2026 Patirke Mendiguren</span>
         <a
           class="footer-email"
           href="mailto:patirkem@gmail.com"

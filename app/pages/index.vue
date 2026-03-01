@@ -6,6 +6,7 @@
     >
       <PictureSource
         :img-src="img"
+        alt="Patirke Mendiguren - Actriz y Cantante"
         :class="{ 'active': index === activeIndex, 'slideshow-image': true }"
       />
     </div>
@@ -13,14 +14,12 @@
 </template>
 
 <script setup lang="ts">
-useHead({
-  title: 'Patirke Mendiguren - Actriz y Cantante',
-  meta: [
-    {
-      name: 'description',
-      content: 'Web oficial de Patirke Mendiguren, actriz y cantante. Descubre su curriculum, galería, vídeos, música y contacto profesional.',
-    },
-  ],
+import { useSocialMeta } from '~/composables/useSocialMeta'
+
+useSocialMeta({
+  title: 'Inicio',
+  description: 'Web oficial de Patirke Mendiguren, actriz y cantante. Descubre su curriculum, galería, vídeos, música y contacto profesional.',
+  urlPath: '/',
 })
 const imgs = ref(['/portada/patirke121', '/portada/patirke122', '/portada/patirke123'])
 const activeIndex = ref(-1)
