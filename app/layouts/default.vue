@@ -42,10 +42,9 @@
 import AppFooter from '~/components/AppFooter.vue'
 import AppNav from '~/components/AppNav.vue'
 import SocialNav from '~/components/SocialNav.vue'
-import { useHead, useRuntimeConfig, useRoute, watch } from '#imports'
+import { useHead, useRuntimeConfig } from '#imports'
 
 const config = useRuntimeConfig()
-const route = useRoute()
 useHead({
   script: [
     {
@@ -55,8 +54,8 @@ useHead({
         '@type': 'Person',
         'name': 'Patirke Mendiguren',
         'jobTitle': 'Actriz y Cantante',
-        'url': 'https://patirke.com/',
-        'image': 'https://patirke.com/portada/patirke121.jpg',
+        'url': `${config.public.siteUrl}/`,
+        'image': `${config.public.siteUrl}/portada/patirke121.jpg`,
         'sameAs': [
           'https://www.imdb.com/name/nm6263976/',
           'https://www.instagram.com/patirke.m/',
@@ -75,24 +74,6 @@ useHead({
     },
   ],
 })
-watch(
-  () => route.fullPath,
-  (fullPath) => {
-    useHead({
-      link: [
-        {
-          rel: 'canonical',
-          key: 'canonical',
-          href:
-            fullPath === '/'
-              ? config.public.siteUrl
-              : `${config.public.siteUrl}${fullPath}`,
-        },
-      ],
-    })
-  },
-  { immediate: true },
-)
 </script>
 
 <style lang="scss">
