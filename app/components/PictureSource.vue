@@ -15,7 +15,13 @@ defineProps<{
 </script>
 
 <style scoped>
-.responsive-img {
+:deep(picture) {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+:deep(.responsive-img) {
   width: 100%;
   height: 100%;
   object-fit: cover;

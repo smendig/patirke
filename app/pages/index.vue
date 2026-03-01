@@ -3,11 +3,11 @@
     <div
       v-for="(img, index) in imgs"
       :key="index"
+      :class="{ active: index === activeIndex, 'slideshow-slide': true }"
     >
       <PictureSource
         :img-src="img"
         alt="Patirke Mendiguren - Actriz y Cantante"
-        :class="{ 'active': index === activeIndex, 'slideshow-image': true }"
       />
     </div>
   </main>
@@ -52,17 +52,27 @@ onUnmounted(() => {
 .page {
   position: relative;
   height: 100vh;
+  overflow: hidden;
 
-  .slideshow-image {
-    width: 100%;
-    height: 100%;
-    opacity: 0;
+  .slideshow-slide {
     position: absolute;
+    inset: 0;
+    opacity: 0;
     transition: opacity 1s;
+
+    // Ensure NuxtPicture's internal elements fill the slide
+    :deep(picture),
+    :deep(img) {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
   }
 
-  .slideshow-image.active {
+  .slideshow-slide.active {
     opacity: 1;
   }
 }
 </style>
+
