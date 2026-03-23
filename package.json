@@ -14,7 +14,7 @@
   },
   "devDependencies": {
     "@nuxt/eslint": "1.15.2",
-    "eslint": "10.0.3",
+    "eslint": "10.1.0",
     "nuxt": "4.4.2",
     "sass": "1.98.0"
   },
@@ -22,6 +22,6 @@
     "@nuxt/image": "2.0.0",
     "@nuxtjs/sitemap": "7.6.0",
     "lightgallery": "2.9.0",
-    "vue-tsc": "3.2.5"
+    "vue-tsc": "3.2.6"
   }
 }
